@@ -20,10 +20,14 @@ const todoList = [
   },
 ];
 
+const handleAdd = (todoName) => {
+  alert(`Ajouter la tâche : ${todoName}`);
+};
+
 const App = () => {
   return (
     <section className="todoapp">
-      <Form />
+      <Form onAdd={handleAdd} />
       {/* Cette section doit être cachée par défaut et affichée quand il y a des todos */}
       <section className="main">
         <input id="toggle-all" className="toggle-all" type="checkbox" />
