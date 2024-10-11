@@ -30,6 +30,14 @@ const App = () => {
     ]);
   };
 
+  const handleisComplete = (todoid) => {
+    setList(
+      list.map((todo) =>
+        todo.id === todoid ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   return (
     <section className="todoapp">
       <Form onAdd={handleAdd} />
@@ -44,6 +52,7 @@ const App = () => {
               key={todo.id}
               name={todo.name}
               complete={todo.completed}
+              onComplete={() => handleisComplete(todo.id)}
             />
           ))}
           <li className="editing">
