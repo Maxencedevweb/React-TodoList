@@ -1,19 +1,11 @@
 import React from 'react'
+import TodoItem from './TodoItem';
+import Form from './Form';
 
 const App = () => {
 
   return <section className="todoapp">
-    <header className="header">
-      <h1>Todo</h1>
-      <form>
-        <input
-            className="new-todo"
-            placeholder="Qu'avez vous à faire ?"
-            autoFocus
-        />
-        <input className="hidden" type="submit" value="Ajouter" />
-      </form>
-    </header>
+  <Form/>
     {/* Cette section doit être cachée par défaut et affichée quand il y a des todos */}
     <section className="main">
       <input
@@ -23,17 +15,7 @@ const App = () => {
       />
       <label htmlFor="toggle-all">Tout compléter</label>
       <ul className="todo-list">
-        <li className="completed">
-          <div className="view">
-            <input className="toggle" type="checkbox" checked />
-            <label>Tester React</label>
-            <button className="destroy" />
-          </div>
-          <form>
-            <input className="edit" defaultValue="Tester React" />
-            <input type="submit" value="Valider" className="hidden" />
-          </form>
-        </li>
+        <TodoItem/>
         <li>
           <div className="view">
             <input className="toggle" type="checkbox" />
