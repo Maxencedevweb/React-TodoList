@@ -15,7 +15,9 @@ const App = () => {
       />
       <label htmlFor="toggle-all">Tout compléter</label>
       <ul className="todo-list">
-        <TodoItem/>
+        <TodoItem name="A faire 1" complete={true} id="todo-1"/>
+        <TodoItem name="A faire 2" complete={false} id="todo-2"/>
+        <TodoItem name="A faire 3" complete={false} id="todo-3"/>
         <li>
           <div className="view">
             <input className="toggle" type="checkbox" />

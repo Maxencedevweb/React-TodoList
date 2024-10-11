@@ -1,10 +1,10 @@
 import React from 'react';
 
 const TodoItem = (props) => {
-    return <li className="completed">
+    return <li>
           <div className="view">
-            <input className="toggle" type="checkbox" checked />
-            <label>Tester React</label>
+            <input id={props.id} className="toggle" type="checkbox" checked={props.complete}/>
+            <label>{props.name}</label>
             <button className="destroy" />
           </div>
           <form>
