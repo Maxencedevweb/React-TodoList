@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 import Form from './Form';
+import { useState } from 'react';
 
 const todoList = [
   {
@@ -20,11 +21,15 @@ const todoList = [
   },
 ];
 
-const handleAdd = (todoName) => {
-  alert(`Ajouter la tâche : ${todoName}`);
-};
-
 const App = () => {
+  const [list, setList] = useState(todoList);
+  const handleAdd = (todoName) => {
+    setList([
+      { id: `todo-${list.length + 1}`, name: todoName, completed: false },
+      ...list,
+    ]);
+  };
+
   return (
     <section className="todoapp">
       <Form onAdd={handleAdd} />
@@ -33,7 +38,7 @@ const App = () => {
         <input id="toggle-all" className="toggle-all" type="checkbox" />
         <label htmlFor="toggle-all">Tout compléter</label>
         <ul className="todo-list">
-          {todoList.map((todo) => (
+          {list.map((todo) => (
             <TodoItem
               id={todo.id}
               key={todo.id}
