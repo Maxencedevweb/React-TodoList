@@ -63,6 +63,7 @@ const App = () => {
       ? !todo.completed
       : true;
   };
+  const leftTodos = list.filter((todo) => !todo.completed).length;
 
   return (
     <section className="todoapp">
@@ -101,7 +102,9 @@ const App = () => {
       <footer className="footer">
         {/* Ceci devrait être "0 restants" par défaut */}
         <span className="todo-count">
-          <strong>2</strong> tâches restantes
+        <strong>
+          {leftTodos}
+          </strong> {leftTodos > 1 ? 'tâches restantes' : 'tâche restante'}
         </span>
         <ul className="filters">
           <FilterButton
