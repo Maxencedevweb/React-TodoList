@@ -68,6 +68,7 @@ const App = () => {
     list.filter((todo) => todo.id !== todoid),
   )
   };
+
   const leftTodos = list.filter((todo) => !todo.completed).length;
 
   const [editing, setEditing] = useState(null);
@@ -93,6 +94,10 @@ const App = () => {
     } else {
       setList(list.map((todo) => ({ ...todo, completed: true })))
     }
+  }
+
+  const handleDeleteCompleted = () => {
+    setList(list.filter((todo) => !todo.completed));
   }
 
   return (
@@ -144,8 +149,8 @@ const App = () => {
             selected={filter === 'active' ? true : false}
           />
         </ul>
-        {/* Caché si aucun élément complété restant */}
-        <button className="clear-completed">Effacer les complétés</button>
+        { leftTodos !== list.length ? <button className="clear-completed" onClick={handleDeleteCompleted}>Effacer les complétés</button>: null}
+
       </footer>
     </section>
   );
