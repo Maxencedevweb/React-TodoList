@@ -78,7 +78,6 @@ const App = () => {
     );
   };
 
-
   const handleEditingSubmit = (newName, todoid) => {
     setList(
       list.map((todo) =>
@@ -88,12 +87,20 @@ const App = () => {
     setEditing(null);
   }
 
+  const handleAllChecked = () => {
+    if (leftTodos === 0) {
+      setList(list.map((todo) => ({ ...todo, completed: false })))
+    } else {
+      setList(list.map((todo) => ({ ...todo, completed: true })))
+    }
+  }
+
   return (
     <section className="todoapp">
       <Form onAdd={handleAdd} />
       {/* Cette section doit être cachée par défaut et affichée quand il y a des todos */}
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox" />
+        <input id="toggle-all" className="toggle-all" type="checkbox" checked={leftTodos === 0} onClick={handleAllChecked}/>
         <label htmlFor="toggle-all">Tout compléter</label>
         <ul className="todo-list">
           {list.filter(listFiltered).map((todo) => (
