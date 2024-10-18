@@ -63,7 +63,30 @@ const App = () => {
       ? !todo.completed
       : true;
   };
+  const handleDestroy = (todoid) => {
+    setList(
+    list.filter((todo) => todo.id !== todoid),
+  )
+  };
   const leftTodos = list.filter((todo) => !todo.completed).length;
+
+  const [editing, setEditing] = useState(null);
+
+  const handleonEdit = (todoid) => {
+    setEditing(
+     todoid
+    );
+  };
+
+
+  const handleEditingSubmit = (newName, todoid) => {
+    setList(
+      list.map((todo) =>
+        todo.id === todoid ? { ...todo, name: newName } : todo
+      )
+    );
+    setEditing(null);
+  }
 
   return (
     <section className="todoapp">
@@ -80,22 +103,13 @@ const App = () => {
               name={todo.name}
               complete={todo.completed}
               onComplete={() => handleisComplete(todo.id)}
+              onDestroy={() => handleDestroy(todo.id)}
+              editing={editing}
+              onEdit={() => handleonEdit(todo.id)}
+              editedValue={(newName) => handleEditingSubmit(newName, todo.id)}
             />
           ))}
-          <li className="editing">
-            <div className="view">
-              <input className="toggle" type="checkbox" />
-              <label>Offrir du saucisson au prof</label>
-              <button className="destroy" />
-            </div>
-            <form>
-              <input
-                className="edit"
-                defaultValue="Offrir du saucisson au prof"
-              />
-              <input type="submit" value="Valider" className="hidden" />
-            </form>
-          </li>
+         
         </ul>
       </section>
       {/* Ce footer doit être caché par défaut et affichée quand il y a des todos */}
