@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoItem = (props) => {
-  const { id, name, complete, onComplete } = props;
+  const { id, name, complete, onComplete, onDestroy } = props;
 
   return (
     <li className={complete ? 'completed' : ''}>
@@ -14,7 +14,8 @@ const TodoItem = (props) => {
           onChange={onComplete}
         />
         <label>{name}</label>
-        <button className="destroy" />
+        <button className="destroy"
+                onClick={onDestroy}/>
       </div>
       <form>
         <input className="edit" defaultValue={name} />
