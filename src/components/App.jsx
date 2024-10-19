@@ -103,7 +103,7 @@ const App = () => {
   return (
     <section className="todoapp">
       <Form onAdd={handleAdd} />
-      {/* Cette section doit être cachée par défaut et affichée quand il y a des todos */}
+         {list.length > 0 &&
       <section className="main">
         <input id="toggle-all" className="toggle-all" type="checkbox" checked={leftTodos === 0} onClick={handleAllChecked}/>
         <label htmlFor="toggle-all">Tout compléter</label>
@@ -124,7 +124,8 @@ const App = () => {
          
         </ul>
       </section>
-      {/* Ce footer doit être caché par défaut et affichée quand il y a des todos */}
+      }
+      {list.length > 0 &&
       <footer className="footer">
         {/* Ceci devrait être "0 restants" par défaut */}
         <span className="todo-count">
@@ -152,6 +153,7 @@ const App = () => {
         { leftTodos !== list.length ? <button className="clear-completed" onClick={handleDeleteCompleted}>Effacer les complétés</button>: null}
 
       </footer>
+      }
     </section>
   );
 };
