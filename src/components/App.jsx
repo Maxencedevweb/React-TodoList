@@ -23,10 +23,20 @@ const todoList = [
 ];
 
 const App = () => {
-  const [list, setList] = useState(todoList);
+  const [list, setList] = useState(() => {
+    const storedList = localStorage.getItem('todoList');
+    return JSON.parse(storedList).length > 0 ? JSON.parse(storedList) : todoList;
+  });
   const [filter, setFilter] = useState('all');
   const [editing, setEditing] = useState(null);
   const [oldList, setOldList] = useState([list]);
+console.log(JSON.parse(localStorage.getItem('todoList')));
+
+useEffect(() => {
+  localStorage.setItem('todoList', JSON.stringify(list));
+  console.log('list', list);
+  console.log(JSON.parse(localStorage.getItem('todoList')));
+}, [list]);
 
   const updateList = (newList) => {
     setOldList([...oldList, list]);
