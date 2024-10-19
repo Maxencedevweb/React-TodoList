@@ -2,8 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 const TodoItem = (props) => {
-  const { id, name, complete, onComplete, onDestroy, editing, onEdit, editingSubmit, editedValue } = props;
-console.log(editing)
+  const { id, name, complete, onComplete, onDestroy, editing, onEdit, editedValue } = props;
 
 const [inputValue, setInputValue] = useState(name);
 const handleChange = (event) => {

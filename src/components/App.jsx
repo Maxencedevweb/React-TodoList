@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import Form from './Form';
 import FilterButton from './FilterButton';
-import { useState } from 'react';
+import CancelButton from './CancelButton';
 
 const todoList = [
   {
@@ -24,21 +24,29 @@ const todoList = [
 
 const App = () => {
   const [list, setList] = useState(todoList);
+  const [filter, setFilter] = useState('all');
+  const [editing, setEditing] = useState(null);
+  const [oldList, setOldList] = useState([list]);
+
+  const updateList = (newList) => {
+    setOldList([...oldList, list]);
+    setList(newList);
+  }
+
   const handleAdd = (todoName) => {
-    setList([
+    updateList([
       { id: `todo-${list.length + 1}`, name: todoName, completed: false },
       ...list,
     ]);
   };
 
   const handleisComplete = (todoid) => {
-    setList(
+    updateList(
       list.map((todo) =>
         todo.id === todoid ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
-  const [filter, setFilter] = useState('all');
 
   const handleFilter = (activeFilter) => {
     setFilter(activeFilter);
@@ -64,14 +72,12 @@ const App = () => {
       : true;
   };
   const handleDestroy = (todoid) => {
-    setList(
+    updateList(
     list.filter((todo) => todo.id !== todoid),
   )
   };
 
   const leftTodos = list.filter((todo) => !todo.completed).length;
-
-  const [editing, setEditing] = useState(null);
 
   const handleonEdit = (todoid) => {
     setEditing(
@@ -80,7 +86,7 @@ const App = () => {
   };
 
   const handleEditingSubmit = (newName, todoid) => {
-    setList(
+    updateList(
       list.map((todo) =>
         todo.id === todoid ? { ...todo, name: newName } : todo
       )
@@ -90,15 +96,24 @@ const App = () => {
 
   const handleAllChecked = () => {
     if (leftTodos === 0) {
-      setList(list.map((todo) => ({ ...todo, completed: false })))
+      updateList(list.map((todo) => ({ ...todo, completed: false })))
     } else {
-      setList(list.map((todo) => ({ ...todo, completed: true })))
+      updateList(list.map((todo) => ({ ...todo, completed: true })))
     }
   }
 
   const handleDeleteCompleted = () => {
-    setList(list.filter((todo) => !todo.completed));
+    updateList(list.filter((todo) => !todo.completed));
   }
+
+  const handleCancel = () => {
+    if (oldList.length > 1) {
+    updateList(oldList[oldList.length - 1]);
+    setOldList(oldList.slice(0, oldList.length - 1));
+    }
+    console.log("HandleCancel oldList:", oldList);
+  };
+
 
   return (
     <section className="todoapp">
@@ -125,7 +140,7 @@ const App = () => {
         </ul>
       </section>
       }
-      {list.length > 0 &&
+      {(list.length > 0 || oldList.length > 1) &&
       <footer className="footer">
         {/* Ceci devrait être "0 restants" par défaut */}
         <span className="todo-count">
@@ -149,7 +164,10 @@ const App = () => {
             onClick={() => handleFilter('active')}
             selected={filter === 'active' ? true : false}
           />
-        </ul>
+          <CancelButton 
+          label="Annuler" 
+          onClick={handleCancel} />
+          </ul>
         { leftTodos !== list.length ? <button className="clear-completed" onClick={handleDeleteCompleted}>Effacer les complétés</button>: null}
 
       </footer>
