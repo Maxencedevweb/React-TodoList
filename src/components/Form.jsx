@@ -13,6 +13,7 @@ const Form = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onAdd(inputValue);
+    setInputValue('');
   };
 
   return (

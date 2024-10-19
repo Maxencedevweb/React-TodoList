@@ -111,7 +111,6 @@ const App = () => {
     updateList(oldList[oldList.length - 1]);
     setOldList(oldList.slice(0, oldList.length - 1));
     }
-    console.log("HandleCancel oldList:", oldList);
   };
 
     useEffect(() => { 
