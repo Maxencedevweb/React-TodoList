@@ -106,14 +106,27 @@ const App = () => {
     updateList(list.filter((todo) => !todo.completed));
   }
 
-  const handleCancel = () => {
-    if (oldList.length > 1) {
+  const handleCancel = () => { // "The 'handleCancel' function makes the dependencies of useEffect Hook (at line 129) change on every render. To fix this, wrap the definition of 'handleCancel' in its own useCallback() Hook."
+    if (oldList.length > 1) { 
     updateList(oldList[oldList.length - 1]);
     setOldList(oldList.slice(0, oldList.length - 1));
     }
     console.log("HandleCancel oldList:", oldList);
   };
 
+    useEffect(() => { 
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key === 'z') {
+        event.preventDefault(); // Eviter le ctrl + z de base qui efface ce qu'on a écrit (par exemple dans input)
+        handleCancel();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown); // Evite les addEventListener qui s'accumulent à chaque re-rendu du composant (ici App.jsx)
+    };
+  }, [handleCancel]);
 
   return (
     <section className="todoapp">
@@ -165,7 +178,8 @@ const App = () => {
             selected={filter === 'active' ? true : false}
           />
           <CancelButton 
-          label="Annuler" 
+          label="Annuler (ctrl + z)" 
+          className="cancel"
           onClick={handleCancel} />
           </ul>
         { leftTodos !== list.length ? <button className="clear-completed" onClick={handleDeleteCompleted}>Effacer les complétés</button>: null}

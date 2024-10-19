@@ -1,3 +1,12 @@
+.filters {
+	padding-top: 2px;
+	margin-left: 30px;
+}
+.clear-completed {
+	position: relative	;
+	top : -10px;
+}
+
 .filters li button {
 	color: inherit;
 	margin: 3px;
@@ -13,4 +22,12 @@
 
 .filters li button.selected {
 	border-color: #CE4646;
+}
+
+.cancel {
+	background-color: #eba7a7;
+}
+
+.cancel:hover {
+	background-color: #e57373;
 }

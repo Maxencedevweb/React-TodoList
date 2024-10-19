@@ -1,11 +1,11 @@
 import React from 'react';
 
 const CancelButton = (props) => {
-  const { label, onClick } = props;
+  const { label, onClick, className } = props;
 
   return (
     <li>
-      <button onClick={onClick}>
+      <button onClick={onClick} className={className}>
         {label}
       </button>
     </li>
