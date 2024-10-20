@@ -25,7 +25,7 @@ const todoList = [
 const App = () => {
   const [list, setList] = useState(() => {
     const storedList = localStorage.getItem('todoList');
-    return JSON.parse(storedList).length > 0 ? JSON.parse(storedList) : todoList;
+    return storedList && JSON.parse(storedList).length > 0 ? JSON.parse(storedList) : todoList;
   });
   const [filter, setFilter] = useState('all');
   const [editing, setEditing] = useState(null);
